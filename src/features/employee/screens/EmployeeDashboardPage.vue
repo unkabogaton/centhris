@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { onMounted } from "vue";
 
-import { useEmployeeStore } from "../stores/employee";
+import { useEmployeeStore } from "@/features/employee/stores/employee";
 import { usePermission } from "@/composables/usePermisson";
 
-import EmployeeTable from "../components/EmployeeTable.vue";
+import EmployeeTable from "@/features/employee/components/EmployeeTable.vue";
 import Button from "@/components/Button.vue";
 
 const store = useEmployeeStore();
@@ -26,11 +26,11 @@ const { can, canAny, canAll } = usePermission();
 
 <template>
   <Button v-if="can('employee.add')">Add Employee</Button>
-  <Button v-if="canAny(['employee.add', 'employee.view'])"
-    >Add and View Employee</Button
+  <Button v-if="canAll(['employee.add', 'employee.assign'])"
+    >Add and Assign Employee</Button
   >
   <EmployeeTable
-    v-if="canAll(['employee.view', 'employee.update', 'employee.delete'])"
+    v-if="canAny(['employee.view', 'employee.update', 'employee.delete'])"
     :employees="store.employees"
     :loading="store.loading"
     :pagination="store.pagination"

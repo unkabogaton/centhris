@@ -41,7 +41,7 @@ cp .env.example .env
 Update the values inside `.env` as needed:
 
 ```env
-VITE_BASE_URL=http://localhost:8000/api
+VITE_BASE_URL=https://afb5e405-82bc-4d4e-9b0e-0824976afc22.mock.pstmn.io
 VITE_MAX_RETRIES=3
 VITE_RETRY_DELAY=800
 ```

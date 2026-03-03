@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { ref, watch } from "vue";
 
+import { useDebounce } from "@/composables/useDebounce";
+
 interface Props {
   modelValue: string;
   placeholder?: string;
@@ -20,19 +22,15 @@ const input = ref(props.modelValue);
 
 watch(
   () => props.modelValue,
-  (val) => {
-    input.value = val;
+  (value) => {
+    input.value = value;
   },
 );
 
-let timeout: ReturnType<typeof setTimeout>;
+const debouncedInput = useDebounce(input, props.debounce);
 
-watch(input, (value) => {
-  clearTimeout(timeout);
-
-  timeout = setTimeout(() => {
-    emit("update:modelValue", value);
-  }, props.debounce);
+watch(debouncedInput, (value) => {
+  emit("update:modelValue", value);
 });
 </script>
 

@@ -26,6 +26,9 @@ const { can, canAny, canAll } = usePermission();
 
 <template>
   <Button v-if="can('employee.add')">Add Employee</Button>
+  <Button v-if="canAny(['employee.add', 'employee.view'])"
+    >Add and View Employee</Button
+  >
   <EmployeeTable
     v-if="canAll(['employee.view', 'employee.update', 'employee.delete'])"
     :employees="store.employees"
